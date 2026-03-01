@@ -53,7 +53,7 @@ static function float GetProjectedFacelessIncome(XComGameState_LWOutpost Outpost
         }
     }
 
-    NewIncome *= 1.0 + (AbilityCount * class'X2LWActivityDetectionCalc_Rendezvous'.default.REDUCTION_ABILITIES_BONUS_MULTI);
+    NewIncome *= 1.0 + (AbilityCount * 0.1);
 
     NewIncome *= float(class'X2LWAlienActivityTemplate'.default.HOURS_BETWEEN_ALIEN_ACTIVITY_DETECTION_UPDATES) / 24.0;
 

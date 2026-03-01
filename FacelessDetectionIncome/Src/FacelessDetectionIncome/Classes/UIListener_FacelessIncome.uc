@@ -2,15 +2,28 @@ class UIListener_FacelessIncome extends UIScreenListener;
 
 event OnInit(UIScreen Screen)
 {
+    if (Screen == none)
+        return;
+
+    if (!Screen.IsA('UIOutpostManagement'))
+        return;
+
+    `Log("FacelessIncome listener triggered for Outpost screen");
+}
+
+/*
+event OnInit(UIScreen Screen)
+{
     local UIOutpostManagement OutpostScreen;
 
-    OutpostScreen = UIOutpostManagement(Screen);
-
-    if (OutpostScreen != none)
+    if (Screen != none && Screen.IsA('UIOutpostManagement'))
     {
+        OutpostScreen = UIOutpostManagement(Screen);
+
         AddFacelessIncome(OutpostScreen);
     }
 }
+*/
 
 function AddFacelessIncome(UIOutpostManagement Screen)
 {
