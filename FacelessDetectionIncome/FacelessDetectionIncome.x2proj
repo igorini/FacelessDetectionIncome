@@ -7,10 +7,9 @@
     <SteamPublishID>0</SteamPublishID>
     <AssemblyName>FacelessDetectionIncome</AssemblyName>
     <RootNamespace>FacelessDetectionIncome</RootNamespace>
+    <ProjectGuid>{be8133d0-d4bb-4804-b6a8-1f56103e89e1}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
-    
-    
     <Folder Include="Config\" />
     <Folder Include="Config\Base\" />
     <Folder Include="Localization\" />
@@ -21,19 +20,6 @@
     <Folder Include="Src\FacelessDetectionIncome\Classes\" />
   </ItemGroup>
   <ItemGroup>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <Content Include="ReadMe.txt" />
     <Content Include="ModPreview.jpg" />
     <Content Include="ContentOptions.json" />
@@ -45,9 +31,15 @@
     <Content Include="Localization\XComGame.int" />
     <Content Include="Localization\FacelessDetectionIncome.int" />
     <Content Include="Src\extra_globals.uci" />
+    <Content Include="Src\FacelessDetectionIncome\Classes\UIListener_FacelessIncome.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\FacelessDetectionIncome\Classes\X2DLCInfo_FacelessDetectionIncome.uc" />
     <Content Include="Src\FacelessDetectionIncome\Classes\Help.uc" />
     <Content Include="Src\FacelessDetectionIncome\Classes\ConfigEngine.uc" />
+    <Content Include="Src\FacelessDetectionIncome\Classes\X2FacelessIncomeHelper.uc">
+      <SubType>Content</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <SolutionRoot>$(MSBuildProjectDirectory)\..\</SolutionRoot>
