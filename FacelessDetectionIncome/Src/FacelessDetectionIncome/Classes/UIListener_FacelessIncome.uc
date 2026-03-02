@@ -1,32 +1,7 @@
 class UIListener_FacelessIncome extends UIScreenListener;
 
 var localized string m_strIncomeFaceless;
-var int CachedAdvisorObjectID;
 var UIScrollingText IncomeFacelessStr;
-var string LastIntel;
-var string LastSupply;
-var string LastRecruit;
-
-event OnTick(UIScreen Screen, float DeltaTime)
-{
-    local UIOutpostManagement OutpostScreen;
-
-    OutpostScreen = UIOutpostManagement(Screen);
-    if (OutpostScreen == none)
-        return;
-
-    if (OutpostScreen.IncomeIntel != LastIntel
-        || OutpostScreen.IncomeSupply != LastSupply
-        || OutpostScreen.IncomeRecruit != LastRecruit)
-    {
-        LastIntel = OutpostScreen.IncomeIntel;
-        LastSupply = OutpostScreen.IncomeSupply;
-        LastRecruit = OutpostScreen.IncomeRecruit;
-
-		`log("Calling RefreshFacelessIncome from OnTick",,'FacelessDebug');
-        RefreshFacelessIncome(OutpostScreen);
-    }
-}
 
 event OnInit(UIScreen Screen)
 {
@@ -52,24 +27,6 @@ event OnReceiveFocus(UIScreen Screen)
 		`log("Calling RefreshFacelessIncome from OnReceiveFocus",,'FacelessDebug');
         RefreshFacelessIncome(OutpostScreen);
     }
-}
-
-event OnCommand(UIScreen Screen, int Cmd, int Arg)
-{
-    local UIOutpostManagement OutpostScreen;
-
-    OutpostScreen = UIOutpostManagement(Screen);
-    if (OutpostScreen == none)
-        return;
-
-    // After liaison changes, UpdateJobUI always runs.#
-	`log("Calling RefreshFacelessIncome from OnCommand",,'FacelessDebug');
-    RefreshFacelessIncome(OutpostScreen);
-}
-
-event OnRemoved(UIScreen Screen)
-{
-    CachedAdvisorObjectID = -1;
 }
 
 function AddFacelessIncome(UIOutpostManagement Screen)
@@ -125,15 +82,12 @@ function AddFacelessIncome(UIOutpostManagement Screen)
 function RefreshFacelessIncome(UIOutpostManagement Screen)
 {
     local XComGameState_LWOutpost Outpost;
-	local StateObjectReference LiaisonRef;
-    local XComGameState_Unit Liaison;
     local float FacelessIncome;
     local string FormattedIncomeFaceless;
-    local int CurrentAdvisorID;
 
 	`log("RefreshFacelessIncome called",,'FacelessDebug');
 
-    Screen.SaveOutpost();
+    //Screen.SaveOutpost();
 
     Outpost = XComGameState_LWOutpost(
         `XCOMHISTORY.GetGameStateForObjectID(Screen.OutpostRef.ObjectID)
@@ -141,26 +95,6 @@ function RefreshFacelessIncome(UIOutpostManagement Screen)
 
     if (Outpost == none)
         return;
-
-    LiaisonRef = Outpost.GetLiaison();
-
-    if (LiaisonRef.ObjectID > 0)
-	{
-		Liaison = XComGameState_Unit(
-			`XCOMHISTORY.GetGameStateForObjectID(LiaisonRef.ObjectID)
-		);
-		CurrentAdvisorID = Liaison.ObjectID;
-	}
-	else
-	{
-		CurrentAdvisorID = -1;
-	}
-
-    // Skip if advisor unchanged
-    if (CurrentAdvisorID == CachedAdvisorObjectID)
-        return;
-
-    CachedAdvisorObjectID = CurrentAdvisorID;
 
     FacelessIncome =
         class'X2FacelessIncomeHelper'.static.GetProjectedFacelessIncome(Outpost);
@@ -190,6 +124,5 @@ function RefreshFacelessIncome(UIOutpostManagement Screen)
 
 defaultproperties
 {
-    CachedAdvisorObjectID = -1;
 	IncomeFacelessStr = none;
 }
