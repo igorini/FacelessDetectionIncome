@@ -35,6 +35,9 @@
     <Content Include="Localization\XComGame.int" />
     <Content Include="Localization\FacelessDetectionIncome.int" />
     <Content Include="Src\extra_globals.uci" />
+    <Content Include="Src\FacelessDetectionIncome\Classes\Help.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\FacelessDetectionIncome\Classes\UIListener_FacelessIncome.uc">
       <SubType>Content</SubType>
     </Content>
