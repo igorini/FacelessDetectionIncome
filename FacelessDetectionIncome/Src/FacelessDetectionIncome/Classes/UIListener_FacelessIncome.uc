@@ -84,18 +84,14 @@ function RefreshFacelessIncome(UIOutpostManagement Screen)
     FacelessIncome =
         class'X2FacelessIncomeHelper'.static.GetProjectedFacelessIncome(Outpost);
 
-	`log("Faceless income calculated as " $ FacelessIncome,,'FacelessDebug');
+	`log("Faceless income calculated as " $ FacelessIncome,,'FacelessDetectIncome');
 
     FormattedIncomeFaceless =
         class'UIUtilities'.static.FormatFloat(FacelessIncome, 1);
 
 	if (IncomeFacelessStr == none)
 	{
-		`log("IncomeFacelessStr is NONE!",,'FacelessDebug');
-	}
-	else
-	{
-		`log("IncomeFacelessStr is valid, updating text",,'FacelessDebug');
+		`log("IncomeFacelessStr is NONE!",,'FacelessDetectIncome');
 	}
     if (Screen.default.bShowJobInfo && IncomeFacelessStr != none)
     {

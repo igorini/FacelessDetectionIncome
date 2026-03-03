@@ -1,4 +1,6 @@
-class X2FacelessIncomeHelper extends Object;
+class X2FacelessIncomeHelper extends Object config(FacelessDetectionIncome);
+
+var config float REDUCTION_ABILITIES_BONUS_MULTI;
 
 static function bool IsLWOTCAtLeast(int Major, int Minor, int Patch)
 {
@@ -70,7 +72,10 @@ static function float GetProjectedFacelessIncome(XComGameState_LWOutpost Outpost
 			}
 		}
 
-		NewIncome *= 1.0 + (AbilityCount * 0.1);
+		NewIncome *= 1.0 + (
+			AbilityCount *
+			class'X2FacelessIncomeHelper'.default.REDUCTION_ABILITIES_BONUS_MULTI
+		);
 	}
 
 	// Don't adjust for geoscape ticks - makes it easier to correlate the value with the LIAISON_MISSION_INCOME_PER_RANK, etc. config values
