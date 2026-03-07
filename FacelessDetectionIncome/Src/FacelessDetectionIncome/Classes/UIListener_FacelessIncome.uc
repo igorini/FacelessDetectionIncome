@@ -52,13 +52,23 @@ function AddFacelessIncome(UIOutpostManagement Screen)
 	IncomeFacelessStr.bAnimateOnInit = false;
 	IncomeFacelessStr.bIsNavigable = false;
 
-	IncomeFacelessStr.InitScrollingText(
+	// Fix the misaligned positioning for LWOTC 1.2.3+
+	if (class'X2FacelessIncomeHelper'.static.IsLWOTCAtLeast(1, 2, 3))
+	{
+		IncomeFacelessStr.InitScrollingText(
+		'Outpost_FacelessIncome',
+		"",
+		Screen.IncomeIntelStr.Width,
+		Screen.IncomeIntelStr.X,
+		Screen.IncomeIntelStr.Y - 28.0);
+	} else {
+		IncomeFacelessStr.InitScrollingText(
 		'Outpost_FacelessIncome',
 		"",
 		Screen.IncomeRecruitStr.Width,
 		Screen.IncomeRecruitStr.X,
-		Screen.IncomeRecruitStr.Y + 28.0
-	);
+		Screen.IncomeRecruitStr.Y + 28.0);
+	}
 
 	IncomeFacelessStr.SetHTMLText(
 		"<p align='RIGHT'><font size='24' color='#fef4cb'>"
