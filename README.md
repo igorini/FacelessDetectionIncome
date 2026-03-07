@@ -1,4 +1,4 @@
-(https://steamcommunity.com/sharedfiles/filedetails/?id=3677863362)[XCOM 2 Mod]
+[XCOM 2 Mod](https://steamcommunity.com/sharedfiles/filedetails/?id=3677863362)
 
 + Description +
 
