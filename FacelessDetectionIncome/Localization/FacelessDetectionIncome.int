@@ -1,2 +1,3 @@
 [UIListener_FacelessIncome]
 m_strIncomeFaceless="Faceless Detection Power:"
+m_strShortIncomeFaceless="Faceless Detection:"

@@ -1,6 +1,12 @@
 class UIListener_FacelessIncome extends UIScreenListener;
 
+// Long version (default)
 var localized string m_strIncomeFaceless;
+// Short version (with LWOTC 1.2.3+ and when Mecs are present)
+var localized string m_strShortIncomeFaceless;
+// Cached version of either m_strIncomeFaceless or m_strShortIncomeFaceless
+var string strIncomeFaceless;
+
 var UIScrollingText IncomeFacelessStr;
 
 event OnInit(UIScreen Screen)
@@ -34,6 +40,8 @@ function AddFacelessIncome(UIOutpostManagement Screen)
     local XComGameStateHistory History;
     local float IncomeFaceless;
 	local string FormattedIncomeFaceless;
+	local float FacelessWidth;
+	local float ContainerCenter;
 
     History = `XCOMHISTORY;
     Outpost = XComGameState_LWOutpost(
@@ -52,15 +60,36 @@ function AddFacelessIncome(UIOutpostManagement Screen)
 	IncomeFacelessStr.bAnimateOnInit = false;
 	IncomeFacelessStr.bIsNavigable = false;
 
+	// Long version by default
+	strIncomeFaceless = m_strIncomeFaceless;
+
 	// Fix the misaligned positioning for LWOTC 1.2.3+
 	if (class'X2FacelessIncomeHelper'.static.IsLWOTCAtLeast(1, 2, 3))
 	{
-		IncomeFacelessStr.InitScrollingText(
-		'Outpost_FacelessIncome',
-		"",
-		Screen.IncomeIntelStr.Width,
-		Screen.IncomeIntelStr.X,
-		Screen.IncomeIntelStr.Y - 28.0);
+		// Shift the positioning to the left if Mecs are present
+		if (Outpost.GetResistanceMecCount() > 0)
+		{
+			FacelessWidth = 300;
+			ContainerCenter = Screen.ResistanceMecs.X + Screen.ResistanceMecs.Width * 0.5;
+
+			IncomeFacelessStr.InitScrollingText(
+				'Outpost_FacelessIncome',
+				"",
+				FacelessWidth,
+				ContainerCenter - FacelessWidth * 0.5,
+				Screen.ResistanceMecs.Y
+			);
+
+			// Set the text to the short version
+			strIncomeFaceless = m_strShortIncomeFaceless;
+		} else {
+			IncomeFacelessStr.InitScrollingText(
+			'Outpost_FacelessIncome',
+			"",
+			Screen.IncomeIntelStr.Width,
+			Screen.IncomeIntelStr.X,
+			Screen.IncomeIntelStr.Y - 28.0);
+		}
 	} else {
 		IncomeFacelessStr.InitScrollingText(
 		'Outpost_FacelessIncome',
@@ -72,7 +101,7 @@ function AddFacelessIncome(UIOutpostManagement Screen)
 
 	IncomeFacelessStr.SetHTMLText(
 		"<p align='RIGHT'><font size='24' color='#fef4cb'>"
-		$ m_strIncomeFaceless @ FormattedIncomeFaceless $
+		$ strIncomeFaceless @ FormattedIncomeFaceless $
 		"</font></p>"
 	);
 	IncomeFacelessStr.SetAlpha(67.1875);
@@ -107,7 +136,7 @@ function RefreshFacelessIncome(UIOutpostManagement Screen)
     {
         IncomeFacelessStr.SetHTMLText(
             "<p align='RIGHT'><font size='24' color='#fef4cb'>"
-            $ m_strIncomeFaceless @ FormattedIncomeFaceless $
+            $ strIncomeFaceless @ FormattedIncomeFaceless $
             "</font></p>"
         );
     }
