@@ -122,6 +122,7 @@ function ConfigureWidgetLayout(UIOutpostManagement Screen, XComGameState_LWOutpo
 {
     local float Width;
     local float ContainerCenter;
+	local float PositionY;
 
     // Default label
     ActiveIncomeLabel = m_strIncomeFaceless;
@@ -129,21 +130,25 @@ function ConfigureWidgetLayout(UIOutpostManagement Screen, XComGameState_LWOutpo
     // LWOTC 1.2.3+ changed UI layout
     if (class'X2FacelessIncomeHelper'.static.IsLWOTCAtLeast(1,2,3))
     {
+		// If MECs are present
         if (Outpost.GetResistanceMecCount() > 0)
         {
-            // Center between Strength and MEC text
-            Width = 300;
-            ContainerCenter = Screen.ResistanceMecs.X + Screen.ResistanceMecs.Width * 0.5;
+			// Center between Strength and MEC text
+			Width = 300;
+			ContainerCenter = Screen.ResistanceMecs.X + Screen.ResistanceMecs.Width * 0.5;
 
-            IncomeFacelessStr.InitScrollingText(
-                'Outpost_FacelessIncome',
-                "",
-                Width,
-                ContainerCenter - Width * 0.5,
-                Screen.ResistanceMecs.Y
-            );
+			// If job prohibition is in place (e.g. "Intel Prohibited") - move the text below
+			PositionY = class'OutpostManagementHelper'.static.hasProhibitedJobs(Outpost) ? Screen.IncomeIntelStr.Y : Screen.ResistanceMecs.Y;
 
-            ActiveIncomeLabel = m_strShortIncomeFaceless;
+			IncomeFacelessStr.InitScrollingText(
+				'Outpost_FacelessIncome',
+				"",
+				Width,
+				ContainerCenter - Width * 0.5,
+				PositionY
+			);
+
+			ActiveIncomeLabel = m_strShortIncomeFaceless;
         }
         else
         {

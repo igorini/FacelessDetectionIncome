@@ -36,6 +36,9 @@
     <Content Include="Config\Base\XComGame.ini" />
     <Content Include="Localization\XComGame.int" />
     <Content Include="Localization\FacelessDetectionIncome.int" />
+    <Content Include="Src\FacelessDetectionIncome\Classes\OutpostManagementHelper.uc">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="Src\FacelessDetectionIncome\Classes\UIListener_FacelessIncome.uc">
       <SubType>Content</SubType>
     </Content>
